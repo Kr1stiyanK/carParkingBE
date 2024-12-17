@@ -1,7 +1,8 @@
 package com.tu.sofia.controller;
 
-import com.tu.sofia.dto.*;
-import com.tu.sofia.model.OrderEntity;
+import com.tu.sofia.dto.BookingFetchDTO;
+import com.tu.sofia.dto.ChangePasswordDTO;
+import com.tu.sofia.dto.UpdateProfileDTO;
 import com.tu.sofia.model.UserEntity;
 import com.tu.sofia.service.ParkingSpaceBookingService;
 import com.tu.sofia.service.UserEntityService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -53,6 +55,32 @@ public class UserController {
         }
         return null;
     }
+
+    @GetMapping("/")
+    public String welcome() {
+        return "Welcome!";
+    }
+
+    @GetMapping("/user")
+    public String user(OAuth2AuthenticationToken token) {
+        var name = token.getPrincipal().getAttribute("name");
+        return "Welcome, " + name + " with email: " + token.getPrincipal().getAttributes().get("email");
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "Kvo stana e ludiqqq??!!";
+    }
+
+//    @GetMapping("/login/oauth2/code/google")
+//    public String handleRedirect(HttpServletRequest request) {
+//        String code = request.getParameter("code");
+//        if (code != null) {
+//            return "Authentication successful. Code: " + code;
+//        } else {
+//            return "Authentication failed.";
+//        }
+//    }
 
 
     @PutMapping("/update-email")

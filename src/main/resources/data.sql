@@ -5,8 +5,11 @@ values (2, 'USER');
 insert into user_roles (id, role)
 values (3, 'GUEST');
 
--- insert into users (id, email, name, password, role_id)
---     value (1,'admin@mail.com','admin','admin',1);
+insert into users (id, email, name, password, role_id)
+    value (1,'admin@mail.com','admin','admin',1);
+
+insert into users (id, email, name, password, role_id)
+    value (2,'guest@mail.com','guest','guest',3);
 
 
 insert into parking_spaces (id, name)
@@ -28,8 +31,8 @@ values (1, 'Park Space 1'),
        (16, 'Park Space 16'),
        (17, 'Park Space 17'),
        (18, 'Park Space 18'),
-       (19, 'Park Space 19')
-       (20, 'Park Space 20');;
+       (19, 'Park Space 19'),
+       (20, 'Park Space 20');
 
 -- insert into resource (name, capacity, status) values ('Box 1', 50, 'locked');
 -- insert into resource (name, capacity) values ('Box 2', 100);

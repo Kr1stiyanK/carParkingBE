@@ -19,7 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-//	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+//	https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	implementation 'mysql:mysql-connector-java:8.0.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -27,6 +27,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'// https://mvnrepository.com/artifact/com.vaadin.external.google/android-json
 	implementation 'com.vaadin.external.google:android-json:0.0.20131108.vaadin1'

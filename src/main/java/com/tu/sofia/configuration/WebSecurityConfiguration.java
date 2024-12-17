@@ -1,6 +1,7 @@
 package com.tu.sofia.configuration;
 
 import com.tu.sofia.filter.JwtFilter;
+import com.tu.sofia.service.OAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class WebSecurityConfiguration {
 
     @Autowired
@@ -34,12 +35,17 @@ public class WebSecurityConfiguration {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity security,
+                                                   OAuthSuccessHandler oAuthSuccessHandler) throws Exception {
         security
                 .csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/register", "/login", "/api/guest/check-availability","/api/guest/quick-booking").permitAll().and()
+                .authorizeHttpRequests().requestMatchers("/register", "/login", "/api/guest/check-availability", "/api/guest/quick-booking").permitAll().and()
+                .authorizeHttpRequests().requestMatchers("/oauth2/**").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
+                .and()
+                .oauth2Login()
+                .successHandler(oAuthSuccessHandler)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

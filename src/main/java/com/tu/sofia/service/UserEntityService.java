@@ -48,10 +48,36 @@ public class UserEntityService implements UserDetailsService {
             role = roleRepo.save(role);
         }
 
+
         UserEntity customer = new UserEntity()
                 .setEmail(signupRequest.getEmail())
                 .setName(signupRequest.getName())
-                .setPassword(passwordEncoder.encode(signupRequest.getPassword()))
+                .setRole(role);
+
+        if (signupRequest.getPassword() != null) {
+            customer.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        }
+
+        UserEntity createdCustomer = userRepo.save(customer);
+        return createdCustomer;
+    }
+
+    public UserEntity createGoogleCustomer(UserRegistrationDTO signupRequest) {
+        if (userRepo.existsByEmail(signupRequest.getEmail())) {
+            return null;
+        }
+
+        UserRoleEntity role = roleRepo.findByRole(UserRoleEnum.USER);
+        if (role == null) {
+            role = new UserRoleEntity().setRole(UserRoleEnum.USER);
+            role = roleRepo.save(role);
+        }
+
+
+        UserEntity customer = new UserEntity()
+                .setEmail(signupRequest.getEmail())
+                .setName(signupRequest.getName())
+                .setPassword(passwordEncoder.encode("1234"))
                 .setRole(role);
 
         UserEntity createdCustomer = userRepo.save(customer);
