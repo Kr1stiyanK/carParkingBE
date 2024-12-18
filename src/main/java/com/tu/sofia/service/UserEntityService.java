@@ -64,7 +64,7 @@ public class UserEntityService implements UserDetailsService {
 
     public UserEntity createGoogleCustomer(UserRegistrationDTO signupRequest) {
         if (userRepo.existsByEmail(signupRequest.getEmail())) {
-            return null;
+            return this.userRepo.findByEmail(signupRequest.getEmail()).get();
         }
 
         UserRoleEntity role = roleRepo.findByRole(UserRoleEnum.USER);
@@ -77,7 +77,7 @@ public class UserEntityService implements UserDetailsService {
         UserEntity customer = new UserEntity()
                 .setEmail(signupRequest.getEmail())
                 .setName(signupRequest.getName())
-                .setPassword(passwordEncoder.encode("1234"))
+                .setPassword(passwordEncoder.encode(signupRequest.getPassword()))
                 .setRole(role);
 
         UserEntity createdCustomer = userRepo.save(customer);

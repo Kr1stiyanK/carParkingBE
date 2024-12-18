@@ -15,9 +15,9 @@ spring:
       client:
         registration:
           google:
-            client-id: CLIENT_ID
-            client-secret: CLIENT_SECRET
-            redirect-uri: REDIRECT_URI
+            client-id: CLIENT-ID
+            client-secret: CLIENT-SECRET
+            redirect-uri: REDIRECT-URI
 logging:
   level:
     org.springframework.security: DEBUG

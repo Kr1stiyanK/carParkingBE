@@ -56,33 +56,6 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/")
-    public String welcome() {
-        return "Welcome!";
-    }
-
-    @GetMapping("/user")
-    public String user(OAuth2AuthenticationToken token) {
-        var name = token.getPrincipal().getAttribute("name");
-        return "Welcome, " + name + " with email: " + token.getPrincipal().getAttributes().get("email");
-    }
-
-    @GetMapping("/error")
-    public String error() {
-        return "Kvo stana e ludiqqq??!!";
-    }
-
-//    @GetMapping("/login/oauth2/code/google")
-//    public String handleRedirect(HttpServletRequest request) {
-//        String code = request.getParameter("code");
-//        if (code != null) {
-//            return "Authentication successful. Code: " + code;
-//        } else {
-//            return "Authentication failed.";
-//        }
-//    }
-
-
     @PutMapping("/update-email")
     public ResponseEntity<?> updateEmail(@RequestBody UpdateProfileDTO updateEmailRequest) {
         try {

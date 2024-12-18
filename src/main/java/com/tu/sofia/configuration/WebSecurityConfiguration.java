@@ -2,6 +2,7 @@ package com.tu.sofia.configuration;
 
 import com.tu.sofia.filter.JwtFilter;
 import com.tu.sofia.service.OAuthSuccessHandler;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import jakarta.servlet.http.Cookie;
 
 import java.util.Arrays;
 
@@ -41,9 +43,36 @@ public class WebSecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/register", "/login", "/api/guest/check-availability", "/api/guest/quick-booking").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/oauth2/**").permitAll().and()
+                .authorizeHttpRequests().requestMatchers("/api/logout").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
+                .logout((logout) -> logout
+                        .logoutUrl("/api/logout").permitAll()
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            if (authentication != null) {
+                                request.getSession().invalidate();
+                            }
+                            Cookie jsessionidCookie = new Cookie("JSESSIONID", null);
+                            jsessionidCookie.setHttpOnly(false);
+                            jsessionidCookie.setSecure(false);
+                            jsessionidCookie.setMaxAge(0);
+                            jsessionidCookie.setPath("/");
+                            response.addCookie(jsessionidCookie);
+
+                            Cookie jwtTokenCookie = new Cookie("jwtToken", null);
+                            jwtTokenCookie.setHttpOnly(false);
+                            jwtTokenCookie.setSecure(false);
+                            jwtTokenCookie.setMaxAge(0);
+                            jwtTokenCookie.setPath("/");
+                            response.addCookie(jwtTokenCookie);
+
+
+                            response.setStatus(HttpServletResponse.SC_OK);
+                        })
+                )
                 .oauth2Login()
                 .successHandler(oAuthSuccessHandler)
                 .and()

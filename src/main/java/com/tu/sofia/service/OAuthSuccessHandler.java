@@ -32,7 +32,8 @@ public class OAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if (authentication instanceof OAuth2AuthenticationToken oAuth2AuthenticationToken) {
             UserRegistrationDTO registrationDTO = new UserRegistrationDTO()
                     .setEmail(oAuth2AuthenticationToken.getPrincipal().getAttribute("email").toString())
-                    .setName(oAuth2AuthenticationToken.getPrincipal().getAttribute("name").toString());
+                    .setName(oAuth2AuthenticationToken.getPrincipal().getAttribute("name").toString())
+                    .setPassword("1234");
             UserEntity user = this.userEntityService.createGoogleCustomer(registrationDTO);
             String token = this.jwtTokenProvider.generateToken(user.getEmail(), user.getId());
             Cookie jwtCookie = new Cookie("jwtToken", token);
