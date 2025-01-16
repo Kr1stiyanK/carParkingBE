@@ -2,6 +2,7 @@ package com.tu.sofia.configuration;
 
 import com.tu.sofia.filter.JwtFilter;
 import com.tu.sofia.service.OAuthSuccessHandler;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import jakarta.servlet.http.Cookie;
 
 import java.util.Arrays;
 
@@ -41,7 +41,8 @@ public class WebSecurityConfiguration {
                                                    OAuthSuccessHandler oAuthSuccessHandler) throws Exception {
         security
                 .csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/register", "/login", "/api/guest/check-availability", "/api/guest/quick-booking").permitAll().and()
+                .authorizeHttpRequests().requestMatchers("/register", "/login", "/api/guest/check-availability",
+                        "/api/guest/quick-booking", "/api/forgotten-password", "/api/reset-password").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/oauth2/**").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/api/logout").permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/api/**").authenticated()

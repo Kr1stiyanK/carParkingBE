@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
   sql:
     init:
       mode: never
@@ -15,9 +15,21 @@ spring:
       client:
         registration:
           google:
-            client-id: CLIENT-ID
-            client-secret: CLIENT-SECRET
-            redirect-uri: REDIRECT-URI
+            client-id: YOUR_CLIENT_ID
+            client-secret: YOUR_CLIENT_SECRET
+            redirect-uri: YOUR_CLIENT_REDIRECT_URI
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: YOUR_MAIL
+    password: 2FACTOR_PASSWORD
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: true
+
 logging:
   level:
     org.springframework.security: DEBUG

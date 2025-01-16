@@ -33,13 +33,3 @@ values (1, 'Park Space 1'),
        (18, 'Park Space 18'),
        (19, 'Park Space 19'),
        (20, 'Park Space 20');
-
--- insert into resource (name, capacity, status) values ('Box 1', 50, 'locked');
--- insert into resource (name, capacity) values ('Box 2', 100);
--- insert into resource (name, capacity) values ('Box 3', 100);
--- insert into resource (name, capacity, status) values ('Box 4', 150, 'locked');
--- insert into resource (name, capacity, status) values ('Box 5', 150, 'locked');
--- insert into resource (name, capacity, status) values ('Box 6', 50, 'locked');
--- insert into resource (name, capacity) values ('Box 7', 50);
--- insert into resource (name, capacity) values ('Box 8', 50);
--- insert into resource (name, capacity) values ('Box 9', 50);

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 
 @Service
 @Lazy
@@ -84,6 +83,17 @@ public class UserEntityService implements UserDetailsService {
         return createdCustomer;
     }
 
+    public Optional<UserEntity> validateEmail(String email) {
+        return this.userRepo.findByEmail(email);
+    }
+
+    public void resetForgottenPassword(UserEntity user, String newPassword) {
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            throw new IllegalArgumentException("New password cannot be the same as the old password");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        this.userRepo.save(user);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
